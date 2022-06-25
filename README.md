@@ -6,5 +6,5 @@
 
 | | Machine | |
 | --- | --- | --- |
-| ![aqua](logo/icons/aqua.svg) | aqua | [hints](hints/aqua.md) \| [walkthrough](walkthroughs/aqua.md) |
-| ![emerald](logo/icons/emerald.svg) | emerald | [hints](hints/emerald.md) \| [walkthrough](walkthroughs/emerald.md) |
+| ![aqua](logo/icons/aqua.svg) | aqua | [hints](machines/aqua/hints.md) \| [walkthrough](machines/aqua/walkthrough.md) |
+| ![emerald](logo/icons/emerald.svg) | emerald | [hints](machines/emerald/hints.md) \| [walkthrough](machines/emerald/walkthrough.md) |

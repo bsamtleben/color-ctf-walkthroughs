@@ -2,9 +2,9 @@
 
 <details>
   <summary>Hint 1</summary>
-  
+
   To be done...
-  
+
 </details>
 
 <details>
