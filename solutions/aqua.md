@@ -1,3 +1,3 @@
-# aqua | walkthrough
+# Walkthrough: aqua
 
 To be done...

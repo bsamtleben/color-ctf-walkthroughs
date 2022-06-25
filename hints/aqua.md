@@ -1,4 +1,4 @@
-# aqua | hints
+# Hints: aqua
 
 <details>
   <summary>Hint 1</summary>
