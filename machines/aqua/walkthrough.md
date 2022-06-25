@@ -21,7 +21,7 @@ PORT   STATE SERVICE VERSION
 
 The output suggests that there are two open ports: an SSH and an HTTP server. The Apache HTTP server on port 80 appears to host a static website, which can be viewed in any web browser:
 
-![](/home/ben/Desktop/Drive/notes/img/2022-06-25-14-19-00-image.png)
+![website](img/01.png)
 
 ## 2. Exploitation / Remote code execution
 
