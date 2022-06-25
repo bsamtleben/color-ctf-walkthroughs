@@ -60,7 +60,9 @@ This one's for you: EMERALD{d1r3ct0ry_bust1ng_g03s_brrrrr}
 
 ## 3. Privilege escalation
 
-One way to elevate privileges are so-called `setuid` binaries. 
+One way to elevate privileges are so-called `setuid` binaries. When a binary with the `setuid` flag is executed, it runs as its respective owner and not as the user who executed it. Some files like `sudo`, `su` or `passwd` require this flag to work properly.
+
+The following find command scans for files with the `setuid` flag:
 
 ```bash
 clemence@emerald:~$ find / -type f -perm -4000 2>/dev/null
@@ -78,7 +80,7 @@ clemence@emerald:~$ find / -type f -perm -4000 2>/dev/null
 /usr/lib/openssh/ssh-keysign
 ```
 
-What is interesting is that the `chown` executable has the `setuid` bit set. Since it is owned by root, we can use it to change the ownership of arbitrary files and folders:
+What is unusual is that the `chown` executable has the `setuid` bit set. Since it is owned by root, we can use it to change the ownership of arbitrary files and folders:
 
 ```bash
 clemence@emerald:~$ ls -al /usr/bin/chown
