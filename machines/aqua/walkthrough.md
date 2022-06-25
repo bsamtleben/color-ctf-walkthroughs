@@ -1,4 +1,4 @@
-# Walkthrough: aqua
+# 🖥 Walkthrough | aqua
 
 ## 1. Reconnaissance
 
