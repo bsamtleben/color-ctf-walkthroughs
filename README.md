@@ -8,3 +8,4 @@
 | --- | --- | --- |
 | ![aqua](logo/icons/aqua.svg) | aqua | [hints](machines/aqua/hints.md) \| [walkthrough](machines/aqua/walkthrough.md) |
 | ![emerald](logo/icons/emerald.svg) | emerald | [hints](machines/emerald/hints.md) \| [walkthrough](machines/emerald/walkthrough.md) |
+| ![cantaloupe](logo/icons/cantaloupe.svg) | cantaloupe | [hints](machines/cantaloupe/hints.md) \| [walkthrough](machines/cantaloupe/walkthrough.md) |
