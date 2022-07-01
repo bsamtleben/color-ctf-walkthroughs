@@ -27,5 +27,5 @@
 <details>
   <summary><b>Hint 5:</b> Privilege escalation II</summary>
   <br>
-  Executables with the `setuid` flag need to be programmed carefully. Each single command line parameter can decide between security and insecurity.
+  Executables with the <code>setuid</code> flag need to be programmed carefully. Each single command line parameter can decide between security and vulnerability.
 </details>
