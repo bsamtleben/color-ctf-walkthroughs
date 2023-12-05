@@ -3,7 +3,7 @@
 <details>
   <summary><b>Hint 1:</b> Reconnaissance I</summary>
   <br>
-  Identify the exposed services. Which data do the services expose? What about hidden contents?
+  Identify the available services. What data do the services expose? What about hidden contents?
 </details>
 
 <details>
@@ -21,5 +21,5 @@
 <details>
   <summary><b>Hint 4:</b> Privilege escalation II</summary>
   <br>
-  The <code>setuid</code> and <code>setgid</code> flags allow an executable to be run as its owner. These flags should only be set on a limited set of executables.
+  The <code>setuid</code> and <code>setgid</code> flags allow an executable to be run as its owner. These flags should only be set on a limited number of executables.
 </details>

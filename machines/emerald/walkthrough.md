@@ -19,13 +19,13 @@ An `nmap` scan reveals the following exposed services:
 [..]
 ```
 
-The output suggests that there is an SSH server on port 22 and a nginx web server on port 8080. The nginx website appears to only contain static contents:
+The output suggests that there is an SSH server on port 22 and an nginx web server on port 8080. The nginx website appears to only contain static contents:
 
 ![website](img/01.png)
 
-One part of reconnaissance is to check for hidden contents. This includes web directories which are not listed publicly, i.e. they need to be discovered. This process is called directory busting.
+One part of reconnaissance is to check for hidden contents. This includes web directories that are not listed publicly. This process is called directory busting.
 
-In this step, we use the tool `dirb` for directory busting. We need to provide an URL as well as a *wordlist* (a text file containing words that will be checked as directory or file names).
+In this step, we use the tool `dirb` for directory busting. We need to provide an URL as well as a *word list* (a text file containing words that will be checked as directory or file names).
 
 ```bash
 # dirb http://192.168.60.4:8080/ /usr/share/wordlists/dirb/big.txt -r
@@ -37,11 +37,11 @@ In this step, we use the tool `dirb` for directory busting. We need to provide a
 [..]
 ```
 
-The output above shows that there appear to be two directories: `assets` and `drive`. Opening the `drive` directory in a web browser shows some interesting files:
+The output above shows that there are two directories: `assets` and `drive`. Opening the `drive` directory in a web browser shows some interesting files:
 
 ![directory-listing](img/02.png)
 
-The files `id_rsa` and `id_rsa.pub` appear to be an RSA key pair. Possibly for SSH?
+The files `id_rsa` and `id_rsa.pub` seem to be an RSA key pair. Possibly for SSH?
 
 ## 2. SSH access
 
@@ -62,7 +62,7 @@ This one's for you: EMERALD{d1r3ct0ry_bust1ng_g03s_brrrrr}
 
 One way to elevate privileges are so-called `setuid` binaries. When a binary with the `setuid` flag is executed, it runs as its respective owner and not as the user who executed it. Some files like `sudo`, `su` or `passwd` require this flag to work properly.
 
-The following `find` command scans for files with the `setuid` flag. Alternatively you could use a much more powerful tool like [LinPEAS](https://github.com/carlospolop/PEASS-ng/tree/master/linPEAS) which also lists `setuid` binaries.
+The following `find` command scans for files with the `setuid` flag. Alternatively you could use a much more powerful tool like [LinPEAS](https://github.com/carlospolop/PEASS-ng/tree/master/linPEAS), which also lists `setuid` binaries.
 
 ```bash
 clemence@emerald:~$ find / -type f -perm -4000 2>/dev/null
@@ -80,12 +80,9 @@ clemence@emerald:~$ find / -type f -perm -4000 2>/dev/null
 /usr/lib/openssh/ssh-keysign
 ```
 
-What is unusual is that the `chown` executable has the `setuid` bit set. Since it is owned by root, we can use it to change the ownership of arbitrary files and folders:
+It's unusual that the `chown` executable has the `setuid` bit set. Since it is owned by root, we can use it to change the ownership of arbitrary files and folders.
 
-```bash
-clemence@emerald:~$ ls -al /usr/bin/chown
--rwsr-xr-x 1 root root 72672 Sep 24  2020 /usr/bin/chown
-```
+> **Tip**: If you want to know how to exploit a `setuid` flag on a certain binary, you can check out **GTFOBins**. [This is the section on chown](https://gtfobins.github.io/gtfobins/chown/#suid).
 
 There are different ways to get root access. Our approach is the following:
 
@@ -95,7 +92,7 @@ There are different ways to get root access. Our approach is the following:
    ```
 2. Edit `/etc/shadow` in an editor of our choice and set the root password to an empty string. To do this, change the first line to:
    ```
-   root::0:[...]
+   root::0:[...keep the rest of the line as it is...]
    ```
 3. Switch to the root user and read the second token:
    ```

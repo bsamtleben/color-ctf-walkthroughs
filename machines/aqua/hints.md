@@ -3,7 +3,7 @@
 <details>
   <summary><b>Hint 1:</b> Scanning for vulnerabilities</summary>
   <br>
-  Try to identify the exposed services and the used software. Check for known vulnerabilities of the discovered software versions.
+  Try to identify the exposed services and the used software. Check the discovered software versions for known vulnerabilities.
 </details>
 
 <details>

